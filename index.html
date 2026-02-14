@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
   <title>For You, Shushu 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Dancing+Script:wght@700&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -37,8 +40,13 @@
     }
 
     @keyframes glowMove {
-      0% { transform: translate(-30%, -30%); }
-      100% { transform: translate(30%, 30%); }
+      0% {
+        transform: translate(-30%, -30%);
+      }
+
+      100% {
+        transform: translate(30%, 30%);
+      }
     }
 
     .screen {
@@ -96,14 +104,14 @@
     .backBtn {
       position: absolute;
       top: 10px;
-      left: 10px;          /* left corner with minimal margin */
+      left: 10px;
       background: white;
       color: #ff4d6d;
       padding: 8px 16px;
       font-size: 0.9rem;
       z-index: 20;
       border-radius: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .music-btn {
@@ -119,7 +127,7 @@
       justify-content: center;
       font-size: 1.8rem;
       cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
       z-index: 100;
       transition: 0.2s;
       -webkit-tap-highlight-color: transparent;
@@ -133,7 +141,7 @@
       font-family: 'Dancing Script', cursive;
       font-size: clamp(2.5rem, 15vw, 4.5rem);
       color: white;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       line-height: 1.2;
     }
 
@@ -162,12 +170,14 @@
         padding: 25px 15px;
         border-radius: 30px;
       }
+
       .backBtn {
         padding: 6px 12px;
         font-size: 0.8rem;
         top: 8px;
         left: 8px;
       }
+
       .music-btn {
         width: 42px;
         height: 42px;
@@ -215,7 +225,7 @@
       white-space: pre-line;
       font-size: clamp(1rem, 4vw, 1.2rem);
       min-height: 160px;
-      text-align: center;        /* center aligned as requested */
+      text-align: center;
       background: #fff0f3;
       padding: 18px;
       border-radius: 28px;
@@ -226,7 +236,8 @@
       box-shadow: inset 0 2px 8px rgba(255, 180, 180, 0.3);
     }
 
-    .heart, .sparkle {
+    .heart,
+    .sparkle {
       position: fixed;
       bottom: -20px;
       animation: floatUp linear infinite;
@@ -234,12 +245,29 @@
       z-index: 999;
       white-space: nowrap;
     }
-    .heart { font-size: clamp(18px, 5vw, 26px); color: #ffb3c6; text-shadow: 0 0 5px hotpink; }
-    .sparkle { font-size: clamp(14px, 4vw, 20px); color: #fff9c4; filter: drop-shadow(0 0 4px gold); }
+
+    .heart {
+      font-size: clamp(18px, 5vw, 26px);
+      color: #ffb3c6;
+      text-shadow: 0 0 5px hotpink;
+    }
+
+    .sparkle {
+      font-size: clamp(14px, 4vw, 20px);
+      color: #fff9c4;
+      filter: drop-shadow(0 0 4px gold);
+    }
 
     @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-      100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(20deg);
+        opacity: 0;
+      }
     }
 
     .firework {
@@ -252,8 +280,15 @@
     }
 
     @keyframes explode {
-      0% { opacity: 1; transform: scale(0.5); }
-      100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.5); }
+      0% {
+        opacity: 1;
+        transform: scale(0.5);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.5);
+      }
     }
 
     .slide-nav-hint {
@@ -266,13 +301,16 @@
       .buttons {
         flex-direction: column;
       }
-      #yesBtn, #noBtn {
+
+      #yesBtn,
+      #noBtn {
         width: 80%;
         margin: 5px auto;
       }
     }
   </style>
 </head>
+
 <body>
 
   <div class="music-btn" onclick="toggleMusic()" role="button" aria-label="Toggle music">🎵</div>
@@ -309,14 +347,14 @@
     </div>
   </div>
 
-  <!-- SLIDESHOW (exactly 3 images) -->
+  <!-- SLIDESHOW with 3 romantic GIFs (only this part changed) -->
   <div class="screen hidden" id="slideshow">
     <button class="backBtn" onclick="goTo('letterScreen')">⬅ Back</button>
     <div class="card">
       <h2>Our Beautiful Memories 📸</h2>
       <div class="gallery">
-        <img id="slide" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format" 
-             alt="Romantic hearts" loading="lazy">
+        <img id="slide" src="https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif" alt="Romantic heart animation"
+          loading="lazy">
       </div>
       <div style="display: flex; justify-content: center; gap: 8px; margin: 18px 0 6px;">
         <button class="primary" onclick="nextSlide()">Next Photo ➡</button>
@@ -326,13 +364,13 @@
   </div>
 
   <script>
-    (function() {
+    (function () {
       const music = document.getElementById('bgMusic');
       let musicStarted = false;
 
-      window.toggleMusic = function() {
+      window.toggleMusic = function () {
         if (music.paused) {
-          music.play().then(() => { musicStarted = true; }).catch(() => {});
+          music.play().then(() => { musicStarted = true; }).catch(() => { });
         } else {
           music.pause();
         }
@@ -340,7 +378,7 @@
 
       function firstInteraction() {
         if (!musicStarted) {
-          music.play().then(() => { musicStarted = true; }).catch(() => {});
+          music.play().then(() => { musicStarted = true; }).catch(() => { });
         }
         document.removeEventListener('click', firstInteraction);
         document.removeEventListener('touchstart', firstInteraction);
@@ -348,7 +386,7 @@
       document.addEventListener('click', firstInteraction);
       document.addEventListener('touchstart', firstInteraction);
 
-      window.goTo = function(screenId) {
+      window.goTo = function (screenId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
         const target = document.getElementById(screenId);
         if (target) target.classList.remove('hidden');
@@ -413,16 +451,16 @@
         }, 40);
       }
 
-      // ---------- SLIDESHOW with exactly 3 images ----------
+      // ---------- SLIDESHOW with exactly 3 romantic GIFs ----------
       const images = [
-        "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format", // hearts
-        "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&auto=format", // couple
-        "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&auto=format"  // candlelight dinner
+        "https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif",   // beating heart
+        "https://media.giphy.com/media/l0MYt5jH6gkTWm8qo/giphy.gif",   // couple slow dance
+        "https://media.giphy.com/media/26BRD3pDnsrRQu4ec/giphy.gif"    // romantic kiss
       ];
       let slideIndex = 0;
       const slideImg = document.getElementById('slide');
 
-      window.nextSlide = function() {
+      window.nextSlide = function () {
         slideIndex = (slideIndex + 1) % images.length;
         fadeImage(slideIndex);
       };
@@ -506,4 +544,5 @@
     })();
   </script>
 </body>
+
 </html>
