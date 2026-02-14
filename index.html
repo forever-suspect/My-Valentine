@@ -236,6 +236,37 @@
       box-shadow: inset 0 2px 8px rgba(255, 180, 180, 0.3);
     }
 
+    /* OUTRO special animations */
+    .pulse-heart {
+      font-size: 5rem;
+      display: inline-block;
+      animation: pulse 1.5s infinite ease-in-out;
+      margin: 20px 0;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+        text-shadow: 0 0 20px #ff4d6d;
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .outro-message {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #e63946;
+      margin: 15px 0;
+      font-family: 'Dancing Script', cursive;
+    }
+
     .heart,
     .sparkle {
       position: fixed;
@@ -347,7 +378,7 @@
     </div>
   </div>
 
-  <!-- SLIDESHOW with 3 romantic GIFs (only this part changed) -->
+  <!-- SLIDESHOW with 3 romantic GIFs -->
   <div class="screen hidden" id="slideshow">
     <button class="backBtn" onclick="goTo('letterScreen')">⬅ Back</button>
     <div class="card">
@@ -357,9 +388,21 @@
           loading="lazy">
       </div>
       <div style="display: flex; justify-content: center; gap: 8px; margin: 18px 0 6px;">
-        <button class="primary" onclick="nextSlide()">Next Photo ➡</button>
+        <button class="primary" onclick="goTo('outro')">Next ➡</button>
       </div>
-      <div class="slide-nav-hint">💞 3 special moments 💞</div>
+      <div class="slide-nav-hint">💞 Some special moments 💞</div>
+    </div>
+  </div>
+
+  <!-- OUTRO SCREEN (new) with animations -->
+  <div class="screen hidden" id="outro">
+    <button class="backBtn" onclick="goTo('slideshow')">⬅ Back</button>
+    <div class="card">
+      <div class="pulse-heart">❤️</div>
+      <div class="outro-message">Thank you, Shushu!</div>
+      <p style="font-size:1.3rem; color:#590d22; margin-bottom:20px;">You are special. 💕</p>
+      <p style="font-style:italic; margin-bottom:30px;">"I'm so happy you said yes."</p>
+      <button class="primary" onclick="goTo('intro')">Start Over 🔄</button>
     </div>
   </div>
 
@@ -393,7 +436,32 @@
         if (screenId === 'question') {
           resetNoButtonPosition();
         }
+        // Special effects when entering outro
+        if (screenId === 'outro') {
+          onEnterOutro();
+        }
       };
+
+      // Outro entrance: burst of fireworks and extra hearts
+      function onEnterOutro() {
+        // Bigger fireworks display
+        for (let i = 0; i < 60; i++) {
+          setTimeout(() => {
+            const f = document.createElement('div');
+            f.className = 'firework';
+            f.innerText = i % 3 === 0 ? '💖' : (i % 3 === 1 ? '✨' : '🌸');
+            f.style.left = window.innerWidth / 2 + 'px';
+            f.style.top = window.innerHeight / 2 + 'px';
+            const x = (Math.random() - 0.5) * 700;
+            const y = (Math.random() - 0.5) * 700;
+            f.style.setProperty('--x', x + 'px');
+            f.style.setProperty('--y', y + 'px');
+            document.body.appendChild(f);
+            setTimeout(() => f.remove(), 1200);
+          }, i * 30); // staggered
+        }
+        // Also add a wave of floating hearts (some already exist)
+      }
 
       const noBtn = document.getElementById('noBtn');
       const yesBtn = document.getElementById('yesBtn');
@@ -451,7 +519,7 @@
         }, 40);
       }
 
-      // ---------- SLIDESHOW with exactly 3 romantic GIFs ----------
+      // Slideshow images (GIFs)
       const images = [
         "https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif",   // beating heart
         "https://media.giphy.com/media/l0MYt5jH6gkTWm8qo/giphy.gif",   // couple slow dance
@@ -484,7 +552,7 @@
         autoPlayInterval = setInterval(nextSlide, 3200);
       });
 
-      // Fireworks
+      // Fireworks (general purpose)
       function fireworks() {
         for (let i = 0; i < 40; i++) {
           const f = document.createElement('div');
@@ -501,7 +569,7 @@
         }
       }
 
-      // Floating hearts & sparkles
+      // Floating hearts & sparkles (always on)
       function createHeart() {
         const h = document.createElement('div');
         h.className = 'heart';
