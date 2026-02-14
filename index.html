@@ -1,550 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>For You, Shushu 💖</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Dancing+Script:wght@700&display=swap"
-        rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>For You, Shushu 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at top left, #ffccd5, #ff4d6d);
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            position: relative;
-            padding: 10px;
-        }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top left, #ffccd5, #ff4d6d);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      padding: 10px;
+    }
 
-        body::before {
-            content: "";
-            position: fixed;
-            width: min(80vw, 600px);
-            height: min(80vw, 600px);
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
-            filter: blur(120px);
-            animation: glowMove 12s infinite alternate ease-in-out;
-            pointer-events: none;
-            z-index: 0;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      width: min(80vw, 600px);
+      height: min(80vw, 600px);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+      filter: blur(120px);
+      animation: glowMove 12s infinite alternate ease-in-out;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        @keyframes glowMove {
-            0% {
-                transform: translate(-30%, -30%);
-            }
+    @keyframes glowMove {
+      0% { transform: translate(-30%, -30%); }
+      100% { transform: translate(30%, 30%); }
+    }
 
-            100% {
-                transform: translate(30%, 30%);
-            }
-        }
+    .screen {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      z-index: 5;
+    }
 
-        .screen {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 15px;
-            z-index: 5;
-        }
+    .hidden {
+      display: none !important;
+    }
 
-        .hidden {
-            display: none !important;
-        }
+    button {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        button {
-            padding: 12px 22px;
-            border: none;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            -webkit-tap-highlight-color: transparent;
-        }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-        }
+    button:active {
+      transform: scale(0.98);
+    }
 
-        button:active {
-            transform: scale(0.98);
-        }
+    .primary {
+      background: linear-gradient(45deg, #ff4d6d, #ff758f);
+      color: white;
+      box-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+    }
 
-        .primary {
-            background: linear-gradient(45deg, #ff4d6d, #ff758f);
-            color: white;
-            box-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
-        }
+    .secondary {
+      background: #6c757d;
+      color: white;
+    }
 
-        .secondary {
-            background: #6c757d;
-            color: white;
-        }
+    /* BACK BUTTON — far left corner */
+    .backBtn {
+      position: absolute;
+      top: 10px;
+      left: 10px;          /* left corner with minimal margin */
+      background: white;
+      color: #ff4d6d;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      z-index: 20;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-        /* BACK BUTTON — far left corner */
-        .backBtn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            /* left corner with minimal margin */
-            background: white;
-            color: #ff4d6d;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            z-index: 20;
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    .music-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: white;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      z-index: 100;
+      transition: 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .music-btn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: white;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            transition: 0.2s;
-            -webkit-tap-highlight-color: transparent;
-        }
+    .music-btn:hover {
+      transform: scale(1.1) rotate(10deg);
+    }
 
-        .music-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.5rem, 15vw, 4.5rem);
+      color: white;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      line-height: 1.2;
+    }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(2.5rem, 15vw, 4.5rem);
-            color: white;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            line-height: 1.2;
-        }
+    h2 {
+      color: #e63946;
+      margin-bottom: 20px;
+      font-size: clamp(1.4rem, 6vw, 2rem);
+      font-weight: 600;
+      padding: 0 5px;
+    }
 
-        h2 {
-            color: #e63946;
-            margin-bottom: 20px;
-            font-size: clamp(1.4rem, 6vw, 2rem);
-            font-weight: 600;
-            padding: 0 5px;
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 20px;
+      border-radius: 40px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(2px);
+      transition: all 0.2s;
+      margin: 15px 0;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px 20px;
-            border-radius: 40px;
-            width: 100%;
-            max-width: 520px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(2px);
-            transition: all 0.2s;
-            margin: 15px 0;
-        }
+    @media (max-width: 450px) {
+      .card {
+        padding: 25px 15px;
+        border-radius: 30px;
+      }
+      .backBtn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        top: 8px;
+        left: 8px;
+      }
+      .music-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1.6rem;
+        top: 10px;
+        right: 10px;
+      }
+    }
 
-        @media (max-width: 450px) {
-            .card {
-                padding: 25px 15px;
-                border-radius: 30px;
-            }
+    .buttons {
+      position: relative;
+      height: auto;
+      min-height: 100px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
 
-            .backBtn {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-                top: 8px;
-                left: 8px;
-            }
+    #noBtn {
+      position: relative;
+      transition: left 0.1s ease, top 0.1s ease;
+      max-width: 90%;
+    }
 
-            .music-btn {
-                width: 42px;
-                height: 42px;
-                font-size: 1.6rem;
-                top: 10px;
-                right: 10px;
-            }
-        }
+    .buttons #noBtn {
+      position: absolute;
+    }
 
-        .buttons {
-            position: relative;
-            height: auto;
-            min-height: 100px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      transition: opacity 0.5s ease;
+      background: #ffe3e8;
+    }
 
-        #noBtn {
-            position: relative;
-            transition: left 0.1s ease, top 0.1s ease;
-            max-width: 90%;
-        }
+    /* LOVE LETTER — centered text */
+    .letter {
+      white-space: pre-line;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      min-height: 160px;
+      text-align: center;        /* center aligned as requested */
+      background: #fff0f3;
+      padding: 18px;
+      border-radius: 28px;
+      margin: 15px 0;
+      line-height: 1.6;
+      color: #590d22;
+      font-weight: 400;
+      box-shadow: inset 0 2px 8px rgba(255, 180, 180, 0.3);
+    }
 
-        .buttons #noBtn {
-            position: absolute;
-        }
+    .heart, .sparkle {
+      position: fixed;
+      bottom: -20px;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+    .heart { font-size: clamp(18px, 5vw, 26px); color: #ffb3c6; text-shadow: 0 0 5px hotpink; }
+    .sparkle { font-size: clamp(14px, 4vw, 20px); color: #fff9c4; filter: drop-shadow(0 0 4px gold); }
 
-        .gallery img {
-            width: 100%;
-            height: auto;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 25px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-            transition: opacity 0.5s ease;
-            background: #ffe3e8;
-        }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+    }
 
-        /* LOVE LETTER — centered text */
-        .letter {
-            white-space: pre-line;
-            font-size: clamp(1rem, 4vw, 1.2rem);
-            min-height: 160px;
-            text-align: center;
-            /* center aligned as requested */
-            background: #fff0f3;
-            padding: 18px;
-            border-radius: 28px;
-            margin: 15px 0;
-            line-height: 1.6;
-            color: #590d22;
-            font-weight: 400;
-            box-shadow: inset 0 2px 8px rgba(255, 180, 180, 0.3);
-        }
+    .firework {
+      position: fixed;
+      font-size: 28px;
+      animation: explode 1s ease-out forwards;
+      pointer-events: none;
+      z-index: 1000;
+      filter: drop-shadow(0 0 8px gold);
+    }
 
-        .heart,
-        .sparkle {
-            position: fixed;
-            bottom: -20px;
-            animation: floatUp linear infinite;
-            pointer-events: none;
-            z-index: 999;
-            white-space: nowrap;
-        }
+    @keyframes explode {
+      0% { opacity: 1; transform: scale(0.5); }
+      100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.5); }
+    }
 
-        .heart {
-            font-size: clamp(18px, 5vw, 26px);
-            color: #ffb3c6;
-            text-shadow: 0 0 5px hotpink;
-        }
+    .slide-nav-hint {
+      margin: 12px 0 0;
+      font-size: 0.9rem;
+      color: #c9184a;
+    }
 
-        .sparkle {
-            font-size: clamp(14px, 4vw, 20px);
-            color: #fff9c4;
-            filter: drop-shadow(0 0 4px gold);
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(-110vh) rotate(20deg);
-                opacity: 0;
-            }
-        }
-
-        .firework {
-            position: fixed;
-            font-size: 28px;
-            animation: explode 1s ease-out forwards;
-            pointer-events: none;
-            z-index: 1000;
-            filter: drop-shadow(0 0 8px gold);
-        }
-
-        @keyframes explode {
-            0% {
-                opacity: 1;
-                transform: scale(0.5);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) scale(1.5);
-            }
-        }
-
-        .slide-nav-hint {
-            margin: 12px 0 0;
-            font-size: 0.9rem;
-            color: #c9184a;
-        }
-
-        @media (max-width: 380px) {
-            .buttons {
-                flex-direction: column;
-            }
-
-            #yesBtn,
-            #noBtn {
-                width: 80%;
-                margin: 5px auto;
-            }
-        }
-    </style>
+    @media (max-width: 380px) {
+      .buttons {
+        flex-direction: column;
+      }
+      #yesBtn, #noBtn {
+        width: 80%;
+        margin: 5px auto;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-    <div class="music-btn" onclick="toggleMusic()" role="button" aria-label="Toggle music">🎵</div>
-    <audio id="bgMusic" loop preload="auto">
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+  <div class="music-btn" onclick="toggleMusic()" role="button" aria-label="Toggle music">🎵</div>
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-    <!-- INTRO -->
-    <div class="screen" id="intro">
-        <h1>Hello Shushu 💕</h1>
-        <p style="color:white; margin:15px 0; font-size:clamp(1rem,4vw,1.4rem);">I made something magical for you...</p>
-        <button class="primary" onclick="goTo('question')">Open My Heart 💌</button>
+  <!-- INTRO -->
+  <div class="screen" id="intro">
+    <h1>Hello Shushu 💕</h1>
+    <p style="color:white; margin:15px 0; font-size:clamp(1rem,4vw,1.4rem);">I made something magical for you...</p>
+    <button class="primary" onclick="goTo('question')">Open My Heart 💌</button>
+  </div>
+
+  <!-- QUESTION -->
+  <div class="screen hidden" id="question">
+    <button class="backBtn" onclick="goTo('intro')">⬅ Back</button>
+    <div class="card">
+      <h2>Shushu, Will You Be My Valentine? 💖</h2>
+      <div class="buttons" id="buttonContainer">
+        <button id="yesBtn" class="primary">Yes 💘</button>
+        <button id="noBtn" class="secondary">No 💔</button>
+      </div>
     </div>
+  </div>
 
-    <!-- QUESTION -->
-    <div class="screen hidden" id="question">
-        <button class="backBtn" onclick="goTo('intro')">⬅ Back</button>
-        <div class="card">
-            <h2>Shushu, Will You Be My Valentine? 💖</h2>
-            <div class="buttons" id="buttonContainer">
-                <button id="yesBtn" class="primary">Yes 💘</button>
-                <button id="noBtn" class="secondary">No 💔</button>
-            </div>
-        </div>
+  <!-- LOVE LETTER -->
+  <div class="screen hidden" id="letterScreen">
+    <button class="backBtn" onclick="goTo('question')">⬅ Back</button>
+    <div class="card">
+      <h2>My small Love confession to You 💌</h2>
+      <div class="letter" id="letter"></div>
+      <button class="primary" onclick="goTo('slideshow')">Next ➡</button>
     </div>
+  </div>
 
-    <!-- LOVE LETTER -->
-    <div class="screen hidden" id="letterScreen">
-        <button class="backBtn" onclick="goTo('question')">⬅ Back</button>
-        <div class="card">
-            <h2>My small Love confession to You 💌</h2>
-            <div class="letter" id="letter"></div>
-            <button class="primary" onclick="goTo('slideshow')">Next ➡</button>
-        </div>
+  <!-- SLIDESHOW (exactly 3 images) -->
+  <div class="screen hidden" id="slideshow">
+    <button class="backBtn" onclick="goTo('letterScreen')">⬅ Back</button>
+    <div class="card">
+      <h2>Our Beautiful Memories 📸</h2>
+      <div class="gallery">
+        <img id="slide" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format" 
+             alt="Romantic hearts" loading="lazy">
+      </div>
+      <div style="display: flex; justify-content: center; gap: 8px; margin: 18px 0 6px;">
+        <button class="primary" onclick="nextSlide()">Next Photo ➡</button>
+      </div>
+      <div class="slide-nav-hint">💞 3 special moments 💞</div>
     </div>
+  </div>
 
-    <!-- SLIDESHOW (exactly 3 images) -->
-    <div class="screen hidden" id="slideshow">
-        <button class="backBtn" onclick="goTo('letterScreen')">⬅ Back</button>
-        <div class="card">
-            <h2>Our Beautiful Memories 📸</h2>
-            <div class="gallery">
-                <img id="slide" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format"
-                    alt="Romantic hearts" loading="lazy">
-            </div>
-            <div style="display: flex; justify-content: center; gap: 8px; margin: 18px 0 6px;">
-                <button class="primary" onclick="nextSlide()">Next Photo ➡</button>
-            </div>
-            <div class="slide-nav-hint">💞 3 special moments 💞</div>
-        </div>
-    </div>
+  <script>
+    (function() {
+      const music = document.getElementById('bgMusic');
+      let musicStarted = false;
 
-    <script>
-        (function () {
-            const music = document.getElementById('bgMusic');
-            let musicStarted = false;
+      window.toggleMusic = function() {
+        if (music.paused) {
+          music.play().then(() => { musicStarted = true; }).catch(() => {});
+        } else {
+          music.pause();
+        }
+      };
 
-            window.toggleMusic = function () {
-                if (music.paused) {
-                    music.play().then(() => { musicStarted = true; }).catch(() => { });
-                } else {
-                    music.pause();
-                }
-            };
+      function firstInteraction() {
+        if (!musicStarted) {
+          music.play().then(() => { musicStarted = true; }).catch(() => {});
+        }
+        document.removeEventListener('click', firstInteraction);
+        document.removeEventListener('touchstart', firstInteraction);
+      }
+      document.addEventListener('click', firstInteraction);
+      document.addEventListener('touchstart', firstInteraction);
 
-            function firstInteraction() {
-                if (!musicStarted) {
-                    music.play().then(() => { musicStarted = true; }).catch(() => { });
-                }
-                document.removeEventListener('click', firstInteraction);
-                document.removeEventListener('touchstart', firstInteraction);
-            }
-            document.addEventListener('click', firstInteraction);
-            document.addEventListener('touchstart', firstInteraction);
+      window.goTo = function(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        const target = document.getElementById(screenId);
+        if (target) target.classList.remove('hidden');
+        if (screenId === 'question') {
+          resetNoButtonPosition();
+        }
+      };
 
-            window.goTo = function (screenId) {
-                document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-                const target = document.getElementById(screenId);
-                if (target) target.classList.remove('hidden');
-                if (screenId === 'question') {
-                    resetNoButtonPosition();
-                }
-            };
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const buttonContainer = document.getElementById('buttonContainer');
 
-            const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
-            const buttonContainer = document.getElementById('buttonContainer');
+      function resetNoButtonPosition() {
+        noBtn.style.left = '';
+        noBtn.style.top = '';
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = '20px';
+        noBtn.style.top = '20px';
+      }
 
-            function resetNoButtonPosition() {
-                noBtn.style.left = '';
-                noBtn.style.top = '';
-                noBtn.style.position = 'absolute';
-                noBtn.style.left = '20px';
-                noBtn.style.top = '20px';
-            }
+      function moveNoButton() {
+        if (!buttonContainer) return;
+        const containerRect = buttonContainer.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+        const maxLeft = Math.max(0, containerRect.width - btnRect.width);
+        const maxTop = Math.max(0, containerRect.height - btnRect.height);
+        let newLeft = Math.random() * maxLeft;
+        let newTop = Math.random() * maxTop;
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = newLeft + 'px';
+        noBtn.style.top = newTop + 'px';
+      }
 
-            function moveNoButton() {
-                if (!buttonContainer) return;
-                const containerRect = buttonContainer.getBoundingClientRect();
-                const btnRect = noBtn.getBoundingClientRect();
-                const maxLeft = Math.max(0, containerRect.width - btnRect.width);
-                const maxTop = Math.max(0, containerRect.height - btnRect.height);
-                let newLeft = Math.random() * maxLeft;
-                let newTop = Math.random() * maxTop;
-                noBtn.style.position = 'absolute';
-                noBtn.style.left = newLeft + 'px';
-                noBtn.style.top = newTop + 'px';
-            }
+      if (noBtn) {
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          moveNoButton();
+        });
+      }
 
-            if (noBtn) {
-                noBtn.addEventListener('mouseenter', moveNoButton);
-                noBtn.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    moveNoButton();
-                });
-            }
+      yesBtn.addEventListener('click', () => {
+        goTo('letterScreen');
+        startLetter();
+        fireworks();
+      });
 
-            yesBtn.addEventListener('click', () => {
-                goTo('letterScreen');
-                startLetter();
-                fireworks();
-            });
+      // Love letter (centered thanks to CSS)
+      const loveMessage = "Shushu...\nFrom the moment you came into my life, everything became brighter.\nYour smile, your laugh, your presence — it means the world to me.\nI promise to cherish you, support you, and love you more every single day.\nForever yours,\nJoy 💕";
+      let charIndex = 0;
+      function startLetter() {
+        const letterDiv = document.getElementById('letter');
+        letterDiv.innerHTML = '';
+        charIndex = 0;
+        const interval = setInterval(() => {
+          if (charIndex < loveMessage.length) {
+            letterDiv.innerHTML += loveMessage[charIndex];
+            charIndex++;
+          } else {
+            clearInterval(interval);
+          }
+        }, 40);
+      }
 
-            // Love letter (centered thanks to CSS)
-            const loveMessage = "Shushu...\nFrom the moment you came into my life, everything became brighter.\nYour smile, your laugh, your presence — it means the world to me.\nI promise to cherish you, support you, and love you more every single day.\nForever yours,\nJoy 💕";
-            let charIndex = 0;
-            function startLetter() {
-                const letterDiv = document.getElementById('letter');
-                letterDiv.innerHTML = '';
-                charIndex = 0;
-                const interval = setInterval(() => {
-                    if (charIndex < loveMessage.length) {
-                        letterDiv.innerHTML += loveMessage[charIndex];
-                        charIndex++;
-                    } else {
-                        clearInterval(interval);
-                    }
-                }, 40);
-            }
+      // ---------- SLIDESHOW with exactly 3 images ----------
+      const images = [
+        "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format", // hearts
+        "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&auto=format", // couple
+        "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&auto=format"  // candlelight dinner
+      ];
+      let slideIndex = 0;
+      const slideImg = document.getElementById('slide');
 
-            // ---------- SLIDESHOW with exactly 3 images ----------
-            const images = [
-                "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format", // hearts
-                "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&auto=format", // couple
-                "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&auto=format"  // candlelight dinner
-            ];
-            let slideIndex = 0;
-            const slideImg = document.getElementById('slide');
+      window.nextSlide = function() {
+        slideIndex = (slideIndex + 1) % images.length;
+        fadeImage(slideIndex);
+      };
 
-            window.nextSlide = function () {
-                slideIndex = (slideIndex + 1) % images.length;
-                fadeImage(slideIndex);
-            };
+      function fadeImage(index) {
+        slideImg.style.opacity = 0;
+        setTimeout(() => {
+          slideImg.src = images[index];
+          slideImg.style.opacity = 1;
+        }, 300);
+      }
 
-            function fadeImage(index) {
-                slideImg.style.opacity = 0;
-                setTimeout(() => {
-                    slideImg.src = images[index];
-                    slideImg.style.opacity = 1;
-                }, 300);
-            }
+      let autoPlayInterval = setInterval(nextSlide, 3200);
 
-            let autoPlayInterval = setInterval(nextSlide, 3200);
+      slideImg.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+      slideImg.addEventListener('mouseleave', () => {
+        autoPlayInterval = setInterval(nextSlide, 3200);
+      });
+      slideImg.addEventListener('touchstart', () => clearInterval(autoPlayInterval));
+      slideImg.addEventListener('touchend', () => {
+        autoPlayInterval = setInterval(nextSlide, 3200);
+      });
 
-            slideImg.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-            slideImg.addEventListener('mouseleave', () => {
-                autoPlayInterval = setInterval(nextSlide, 3200);
-            });
-            slideImg.addEventListener('touchstart', () => clearInterval(autoPlayInterval));
-            slideImg.addEventListener('touchend', () => {
-                autoPlayInterval = setInterval(nextSlide, 3200);
-            });
+      // Fireworks
+      function fireworks() {
+        for (let i = 0; i < 40; i++) {
+          const f = document.createElement('div');
+          f.className = 'firework';
+          f.innerText = i % 2 === 0 ? '✨' : '💖';
+          f.style.left = window.innerWidth / 2 + 'px';
+          f.style.top = window.innerHeight / 2 + 'px';
+          const x = (Math.random() - 0.5) * 500;
+          const y = (Math.random() - 0.5) * 500;
+          f.style.setProperty('--x', x + 'px');
+          f.style.setProperty('--y', y + 'px');
+          document.body.appendChild(f);
+          setTimeout(() => f.remove(), 1000);
+        }
+      }
 
-            // Fireworks
-            function fireworks() {
-                for (let i = 0; i < 40; i++) {
-                    const f = document.createElement('div');
-                    f.className = 'firework';
-                    f.innerText = i % 2 === 0 ? '✨' : '💖';
-                    f.style.left = window.innerWidth / 2 + 'px';
-                    f.style.top = window.innerHeight / 2 + 'px';
-                    const x = (Math.random() - 0.5) * 500;
-                    const y = (Math.random() - 0.5) * 500;
-                    f.style.setProperty('--x', x + 'px');
-                    f.style.setProperty('--y', y + 'px');
-                    document.body.appendChild(f);
-                    setTimeout(() => f.remove(), 1000);
-                }
-            }
+      // Floating hearts & sparkles
+      function createHeart() {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.innerText = '💖';
+        h.style.left = Math.random() * window.innerWidth + 'px';
+        h.style.animationDuration = (4 + Math.random() * 5) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 8000);
+      }
 
-            // Floating hearts & sparkles
-            function createHeart() {
-                const h = document.createElement('div');
-                h.className = 'heart';
-                h.innerText = '💖';
-                h.style.left = Math.random() * window.innerWidth + 'px';
-                h.style.animationDuration = (4 + Math.random() * 5) + 's';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 8000);
-            }
+      function createSparkle() {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.innerText = '✨';
+        s.style.left = Math.random() * window.innerWidth + 'px';
+        s.style.animationDuration = (3 + Math.random() * 4) + 's';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 7000);
+      }
 
-            function createSparkle() {
-                const s = document.createElement('div');
-                s.className = 'sparkle';
-                s.innerText = '✨';
-                s.style.left = Math.random() * window.innerWidth + 'px';
-                s.style.animationDuration = (3 + Math.random() * 4) + 's';
-                document.body.appendChild(s);
-                setTimeout(() => s.remove(), 7000);
-            }
+      let heartInterval, sparkleInterval;
+      function startFloatingElements() {
+        if (heartInterval) clearInterval(heartInterval);
+        if (sparkleInterval) clearInterval(sparkleInterval);
+        const isMobile = window.innerWidth < 500;
+        heartInterval = setInterval(createHeart, isMobile ? 500 : 300);
+        sparkleInterval = setInterval(createSparkle, isMobile ? 700 : 400);
+      }
+      startFloatingElements();
+      window.addEventListener('resize', startFloatingElements);
 
-            let heartInterval, sparkleInterval;
-            function startFloatingElements() {
-                if (heartInterval) clearInterval(heartInterval);
-                if (sparkleInterval) clearInterval(sparkleInterval);
-                const isMobile = window.innerWidth < 500;
-                heartInterval = setInterval(createHeart, isMobile ? 500 : 300);
-                sparkleInterval = setInterval(createSparkle, isMobile ? 700 : 400);
-            }
-            startFloatingElements();
-            window.addEventListener('resize', startFloatingElements);
+      window.addEventListener('resize', () => {
+        if (noBtn.style.position === 'absolute') {
+          noBtn.style.left = '20px';
+          noBtn.style.top = '20px';
+        }
+      });
 
-            window.addEventListener('resize', () => {
-                if (noBtn.style.position === 'absolute') {
-                    noBtn.style.left = '20px';
-                    noBtn.style.top = '20px';
-                }
-            });
-
-            resetNoButtonPosition();
-        })();
-    </script>
+      resetNoButtonPosition();
+    })();
+  </script>
 </body>
-
 </html>
