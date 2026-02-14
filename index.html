@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Dearest, <br> Shushu 💖</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top left, #ffccd5, #ff4d6d);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Glow */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+            filter: blur(120px);
+            animation: glowMove 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes glowMove {
+            from {
+                transform: translate(-200px, -200px)
+            }
+
+            to {
+                transform: translate(200px, 200px)
+            }
+        }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 8px;
+        }
+
+        button:hover {
+            transform: scale(1.1)
+        }
+
+        .primary {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+        }
+
+        .secondary {
+            background: #6c757d;
+            color: white
+        }
+
+        .backBtn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #ff4d6d;
+        }
+
+        .music-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 50px;
+            color: white
+        }
+
+        h2 {
+            color: #e63946;
+            margin-bottom: 15px
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 30px;
+            width: 420px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .buttons {
+            position: relative;
+            height: 100px
+        }
+
+        #noBtn {
+            position: absolute
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transition: 1s;
+        }
+
+        .heart,
+        .sparkle {
+            position: absolute;
+            bottom: -20px;
+            animation: floatUp linear infinite;
+        }
+
+        .heart {
+            font-size: 22px;
+            color: white
+        }
+
+        .sparkle {
+            font-size: 16px;
+            color: yellow
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-110vh);
+                opacity: 0
+            }
+        }
+
+        .letter {
+            white-space: pre-line;
+            font-size: 18px;
+            min-height: 120px;
+        }
+
+        .firework {
+            position: absolute;
+            font-size: 25px;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            to {
+                transform: translate(var(--x), var(--y));
+                opacity: 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="music-btn" onclick="toggleMusic()">🎵</div>
+    <audio id="bgMusic" loop preload="auto">
+        <source
+            src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112194.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <!-- INTRO -->
+    <div class="screen" id="intro">
+        <h1>Hello Shushu 💕</h1>
+        <p style="color:white;margin:15px 0">I made something magical for you...</p>
+        <button class="primary" onclick="goTo('question')">Open My Heart 💌</button>
+    </div>
+
+    <!-- QUESTION -->
+    <div class="screen hidden" id="question">
+        <button class="backBtn" onclick="goTo('intro')">⬅ Back</button>
+        <div class="card">
+            <h2>Shushu, Will You Be My Valentine? 💖</h2>
+
+            <div class="buttons">
+                <button id="yesBtn" class="primary">Yes 💘</button>
+                <button id="noBtn" class="secondary">No 💔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOVE LETTER -->
+    <div class="screen hidden" id="letterScreen">
+        <button class="backBtn" onclick="goTo('question')">⬅ Back</button>
+        <div class="card">
+            <h2>My small Love confession to You 💌</h2>
+            <div class="letter" id="letter"></div>
+            <button class="primary" onclick="goTo('slideshow')">Next ➡</button>
+        </div>
+    </div>
+
+    <!-- SLIDESHOW -->
+    <div class="screen hidden" id="slideshow">
+        <button class="backBtn" onclick="goTo('letterScreen')">⬅ Back</button>
+        <div class="card">
+            <h2>Our Beautiful Memories 📸</h2>
+            <div class="gallery">
+                <img id="slide" src="https://via.placeholder.com/400x250">
+            </div>
+            <button class="primary" onclick="nextSlide()">Next Photo ➡</button>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        let musicStarted = false;
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play().then(() => { musicStarted = true; }).catch(() => { });
+            } else {
+                music.pause();
+            }
+        }
+
+        // Start music when user opens the experience
+        const openBtn = document.querySelector("button[onclick=\"goTo('question')\"]");
+        openBtn.addEventListener('click', () => {
+            music.play().catch(() => { });
+        });
+
+        function goTo(screen) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(screen).classList.remove('hidden');
+        }
+
+        // No button runs
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseenter', () => {
+            noBtn.style.left = Math.random() * 200 + 'px';
+            noBtn.style.top = Math.random() * 60 + 'px';
+        });
+
+        // Yes click
+        const yesBtn = document.getElementById('yesBtn');
+        yesBtn.addEventListener('click', () => {
+            goTo('letterScreen');
+            startLetter();
+            fireworks();
+        });
+
+        // Typing love letter
+        const text = "Shushu...\nFrom the moment you came into my life, everything became brighter.\nYour smile, your laugh, your presence — it means the world to me.\nI promise to cherish you, support you, and love you more every single day. From Joy 💕";
+        let i = 0;
+        function startLetter() {
+            document.getElementById('letter').innerHTML = "";
+            i = 0;
+            const interval = setInterval(() => {
+                document.getElementById('letter').innerHTML += text[i];
+                i++;
+                if (i >= text.length) clearInterval(interval);
+            }, 40);
+        }
+
+        // Slideshow
+        const images = [
+            "https://via.placeholder.com/400x250/ff8fa3",
+            "https://via.placeholder.com/400x250/ff758f",
+            "https://via.placeholder.com/400x250/ff4d6d"
+        ];
+        let index = 0;
+        function nextSlide() {
+            index = (index + 1) % images.length;
+            const img = document.getElementById('slide');
+            img.style.opacity = 0;
+            setTimeout(() => { img.src = images[index]; img.style.opacity = 1 }, 500);
+        }
+
+        // Fireworks
+        function fireworks() {
+            for (let i = 0; i < 40; i++) {
+                const f = document.createElement('div');
+                f.className = 'firework';
+                f.innerText = '✨';
+                f.style.left = window.innerWidth / 2 + 'px';
+                f.style.top = window.innerHeight / 2 + 'px';
+                f.style.setProperty('--x', (Math.random() * 400 - 200) + 'px');
+                f.style.setProperty('--y', (Math.random() * 400 - 200) + 'px');
+                document.body.appendChild(f);
+                setTimeout(() => f.remove(), 1000);
+            }
+        }
+
+        // Floating hearts & sparkles
+        function createHeart() {
+            const h = document.createElement('div');
+            h.className = 'heart'; h.innerText = '💖';
+            h.style.left = Math.random() * window.innerWidth + 'px';
+            h.style.animationDuration = (4 + Math.random() * 4) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 8000);
+        }
+        setInterval(createHeart, 300);
+
+        function createSparkle() {
+            const s = document.createElement('div');
+            s.className = 'sparkle'; s.innerText = '✨';
+            s.style.left = Math.random() * window.innerWidth + 'px';
+            s.style.animationDuration = (3 + Math.random() * 3) + 's';
+            document.body.appendChild(s);
+            setTimeout(() => s.remove(), 6000);
+        }
+        setInterval(createSparkle, 500);
+
+        // Auto‑play Slideshow
+        let autoPlay = setInterval(nextSlide, 3000);
+
+        const slideImg = document.getElementById('slide');
+        slideImg.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        slideImg.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 3000));
+    </script>
+
+</body>
+
+</html>
